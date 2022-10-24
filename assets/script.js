@@ -12,8 +12,10 @@
 
 var timer = 0;
 var questionsRight = 0;
+var testing = false;
+var currentQuestion = 0;
 var score = 0;
-var name ="";
+var name = "";
 var scoreList = [
     {
         "name": "",
@@ -25,8 +27,15 @@ var qBox = document.querySelector(".question");
 var aBox = document.querySelector(".answer");
 var countDown = document.querySelector(".countDown");
 var showScore = document.querySelector(".showScore");
+var answerList = document.querySelector("#answerList");
 
 var quiz = [
+    {
+        "question": "Are you prepared?",
+        "answers": ["Yes", "No"],
+        "answer": "Yes",
+
+    },
     {
         "question": "How many years ago was the axe beleived to invented?",
         "answers": ["1.76m y/o", "300,000 y/o", "49,000 y/o", "3.3m y/o"],
@@ -65,8 +74,7 @@ var quiz = [
     },
 ]
 
-console.log({ quiz });
-console.log(scoreList.name);
+
 
 function getHighScore() {
     var storedScores = JSON.parse(localStorage.getItem("highScores"));
@@ -84,30 +92,79 @@ function setHighScore(name, score) {
     }
     scoreList.push(newScore);
     let sortedScores = scoreList.sort((c1, c2) => (c1.score < c2.score) ? 1 : (c1.score > c2.score) ? -1 : 0);
-console.log(sortedScores);
+    console.log(sortedScores);
     localStorage.setItem("highScores", JSON.stringify(scoreList));
 
 }
 
 
-console.log(scoreList);
-getHighScore()
+function resetQuiz() {
+    timer = 0;
+    questionsRight = 0;
+    testing = false;
+    currentQuestion = 0;
+    score = 0;
+    // displayQuestion();
+}
 
-name = "billy";
-score = 60;
-setHighScore(name, score);
-getHighScore()
-name = "donny";
-score = 70;
-setHighScore(name, score);
-getHighScore()
-name = "joey";
-score = 80;
-setHighScore(name, score);
-getHighScore()
-console.log(scoreList);
+function displayQuestion() {
+    qBox.textContent = quiz[currentQuestion].question;
+    answerList.innerHTML = "";
+    for (var i = 0; i < quiz[currentQuestion].answers.length; i++) {
+        var ans = quiz[currentQuestion].answers[i];
+
+        var li = document.createElement("li");
+        var button = document.createElement("button");
+        button.textContent = ans;
+        button.setAttribute("id", ans);
+        button.setAttribute("class", "ans");
+        li.appendChild(button);
+        answerList.appendChild(li);
+    }
+
+}
+
+function displayHighScore() {
+    qBox.textContent = "High Scores:";
+    getHighScore();
+    answerList.innerHTML = "";
+    for (var i = 0; i < scoreList.length; i++) {
+
+        if (i === scoreList.length - 1) {
+            var li = document.createElement("li");
+            var goBack = document.createElement("button");
+            goBack.textContent = "Go back";
+            goBack.setAttribute("id", "goBack");
+            var clearList = document.createElement("button");
+            clearList.textContent = "Clear Highscores";
+            clearList.setAttribute("id", "clear");
+            li.appendChild(goBack);
+            li.appendChild(clearList);
+            answerList.appendChild(li);
+            clearList.addEventListener("click", resetScores);
+            goBack.addEventListener("click", displayQuestion);
+        } else {
+            var li = document.createElement("li");
+            li.textContent = i + 1 + ": " + scoreList[i].name + " - " + scoreList[i].score;
+            // li.appendChild(button);
+            answerList.appendChild(li);
+        }
+    }
+
+}
 
 
+function resetScores() {
+    scoreList = [
+        {
+            "name": "",
+            "score": 0,
+        }];
+    localStorage.setItem("highScores", JSON.stringify(scoreList));
+    displayHighScore();
+
+}
+showScore.addEventListener("click", displayHighScore);
 
 // `get the variables off the page || gethighscore()
 
@@ -120,6 +177,8 @@ console.log(scoreList);
 
 // isRight() check answer function && display feedback
 
+// nextQuestion() deletes fields, increments, builds next question, if currentQuestion> quiz.length then test over
+
 // testOver() check timerout || test completed
 
 // testResult() display score enter initial
@@ -129,4 +188,26 @@ console.log(scoreList);
 // display high scores ()
 
 //return to quiz or restart quiz ()
+
+console.log({ quiz });
+console.log(scoreList.name);
+console.log(scoreList);
+getHighScore();
+
+name = "billy";
+score = 60;
+setHighScore(name, score);
+getHighScore();
+name = "donny";
+score = 70;
+setHighScore(name, score);
+getHighScore();
+name = "joey";
+score = 80;
+setHighScore(name, score);
+getHighScore();
+console.log(scoreList);
+
+displayQuestion();
+// displayHighScore();
 
