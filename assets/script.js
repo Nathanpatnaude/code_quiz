@@ -28,7 +28,7 @@ var quiz = [
 
     },
     {
-        "question": "How many years ago was the axe beleived to invented?",
+        "question": "How many years ago was the axe believed to invented?",
         "answers": ["1.76m y/o", "300,000 y/o", "49,000 y/o", "3.3m y/o"],
         "answer": "1.76m y/o",
 
@@ -40,7 +40,7 @@ var quiz = [
 
     },
     {
-        "question": "Who is the oldest Axe Murderer?",
+        "question": "Who is the oldest axe murderer?",
         "answers": ["Clementine Barnabet", "Elifasi Msomi", "Axeman of New Orleans", "Raymonde Jouhanno"],
         "answer": "Clementine Barnabet",
 
@@ -52,7 +52,7 @@ var quiz = [
 
     },
     {
-        "question": "Which Word exists because of double axes?",
+        "question": "Which word exists because of double axes?",
         "answers": ["labyrinth", "cleave", "axel", "crescent"],
         "answer": "labyrinth",
 
