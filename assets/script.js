@@ -81,7 +81,7 @@ function setHighScore(name, score) {
         "score": score,
     }
     scoreList.push(newScore);
-    let sortedScores = scoreList.sort((c1, c2) => (c1.score < c2.score) ? 1 : (c1.score > c2.score) ? -1 : 0);
+    scoreList.sort((c1, c2) => (c1.score < c2.score) ? 1 : (c1.score > c2.score) ? -1 : 0);
     localStorage.setItem("highScores", JSON.stringify(scoreList));
 
 }
